@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body {
+                background-color: rgb(35, 40, 45);
+                color: white;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <!--LOCAL FILE READER-->
+            <!--
+                The browser's filereader, which we can interact with via Javascript, is part of the window object.
+            -->
+
+            <script>
+                console.dir(window.FileReader)
+            </script>
+
+            <!--UPLOADING FILES-->
+                <!--
+                    Uploading files via a webform is very straightforward. All we have to do is add an input field with type="file". You can then access the file through the .files property of the inputfield element.
+                -->
+                <body>
+                    <input type="file">
+                    <script>
+
+                        let inputfield = document.querySelector("input[type='file']");
+                        inputfield.addEventListener("change", (event) => logfiles(event))
+
+                        function logfiles(ev){
+                            evta = ev.target
+                            console.log(evta.files)
+                            console.log(evta.files[0]);
+                            console.log(evta.files[0].name);
+                        }
+                    </script>
+                </body>
+
+                <!--
+                    If you want to upload multiple files at once, you can do so with a small modification to the inputfield; by moving the eventlistener to the html itself and preceding it with the "multiple" keyword.
+                -->
+                <body>
+                    <input id="multiplefiles" type="file" multiple onchange="logfilestoo(event)" >
+                    <script>
+
+                        function logfilestoo(ev){
+                            evta = ev.target
+                            console.log(evta.files)
+                            console.log(evta.files[0]);
+                            console.log(evta.files[0].name);
+                        }
+                    </script>
+                </body>
+
+            <!--UPLOADING FILES-->
+                <!--
+                    The window object has a method called FileReader, but you can use it on its own.
+                -->
+
+                <body>
+                    <input id="multiplefilestoread" type="file" multiple onchange="logfilesandreadthem(event)" >
+                    <script>
+
+                        function logfilesandreadthem(ev){
+                            evta = ev.target
+                            console.log(evta.files)
+                            console.log(evta.files[0]);
+                            console.log(evta.files[0].name);
+                        }
+                    </script>
+                </body>
+
+            <!--READING FILES-->
+
+                <!--
+                    Based on https://www.youtube.com/watch?v=-AR-6X_98rM
+                    To read a file, you have to create a new FileReader, then tell it to read your file, and then tell it to consolelog the result once its done reading the file (i.e. the done loading).
+                    Slightly new in this video is that he uses an anonymous function in the addEventListner instead of an Arrow or Wrapper function.
+                    In addition, the reader.onload can't get the console.log() directly; it needs to be wrapped in an anonymous function too.
+                -->
+
+                <body>
+                    <input type="file" id="filetoread">
+                    <script>
+                        let inputEl = document.querySelector("input#filetoread");
+                        inputEl.addEventListener("change", function(e){
+                            
+                            let reader = new FileReader;
+
+                            reader.readAsText(inputEl.files[0])
+                            reader.onload = function(){
+                                console.log(reader.result)
+                            };
+
+
+                        })
+
+                    </script>
+                </body>
+
+            <!--PRACTICE EXERCISE 14.1-->
+            <html>
+                <head>
+                    <title>Complete Javascript Course</title>
+                    <style>
+                        .thumb {
+                            max-height: 100px;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <input type="file" multiple accept="image/*" id="imageinput">
+                    <div class="output"></div>
+                    <script>
+                        let imageinputEl = document.querySelector("input#imageinput");
+                        let outputEl = document.querySelector("div.output")
+                        imageinputEl.addEventListener("change", (event) => readFiles(event));
+
+                        function readFiles(ev){
+                            for(let img of imageinputEl.files){
+        
+                                let reader = new FileReader
+                                reader.readAsDataURL(img)
+                                reader.onload = function(){
+
+                                    let newImg = document.createElement("img");
+                                    newImg.setAttribute("src", reader.result)
+                                    newImg.setAttribute("style", "max-width: 50vw")
+                                    outputEl.appendChild(newImg)
+                                    
+                                }
+                            };
+                        }   
+                        
+
+                    </script>
+                </body>    
+
+            </html>
+
+            <!--GEOLOCATION-->
+
+                <!--
+                    The geolocation class is part of the navigator object. You can access it via navigator.geolocation:
+                -->
+
+                <script>
+                    console.dir(navigator.geolocation)
+                </script>
+
+                <!--
+                    The geolocation class contains a method called getCurrentPosition(), which takes another function as argument and passes locationdata to it.
+                    The getCurrentPosition() class provides longitude and latitude coordinates as output.
+                -->
+                <script>
+
+                    window.onload = init; //This is different from window.onload = init(), see https://stackoverflow.com/questions/8830074/what-is-the-difference-between-window-onload-init-and-window-onload-init
+
+
+                    function init(){
+                        function showMyLocation(locationdata){
+                            console.dir(locationdata)
+                        };
+
+                        console.dir(navigator.geolocation.getCurrentPosition(showMyLocation));
+                    }
+                </script>
+
+            <!--HTML5 CANVAS-->
+
+                <html>
+                    <head>
+                        <style>
+                            canvas {
+                                background-color: white;
+                            }
+                        </style>
+                    </head>
+
+                    <body>
+                        <canvas id="c1"></canvas>
+                        <script>
+                            let canvas = document.querySelector("canvas#c1");
+                            canvas.width = 500;
+                            canvas.height = 500;
+                            
+                            let ctx = canvas.getContext("2d");
+                            ctx.fillStyle = "pink" //This sets the fillcolor for the drawing. Has to preced the fillRect statement.
+                            ctx.fillRect(20, 40, 100, 100); //This does the drawing; here it draws a square.
+                        </script>
+                    </body>
+                </html>
+
+            <!--PRACTICE EXERCISE 14.2-->
+
+                <html>
+                    <head>
+                        <style>
+                            canvas {
+                                background-color: white;
+                            }
+                        </style>
+                    </head>
+
+                    <body>
+                        <canvas id="c2"></canvas>
+                        <script>
+                            let canvas2 = document.querySelector("canvas#c2");
+                            canvas2.width = 800;
+                            canvas2.height = 800;
+
+                            let ctx2 = canvas2.getContext("2d");
+                            ctx2.fillStyle = "red";
+                            ctx2.fillRect(0, 0, 200, 50)
+                        </script>
+
+                    </body>
+                </html>
+
+
+
+
+
+
+        
+    </body>
+</html>

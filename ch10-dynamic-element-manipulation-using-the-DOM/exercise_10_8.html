@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Complete Javascript Course</title>
+    </head>
+    <body>
+        <div id="message"></div>
+        <div id="output"></div>
+        <div id="table"></div>
+
+        <script>
+
+            let names = ["Mark", "Markus", "Alexis", "Loic", "William", "Anthony"];
+
+            let messageDiv = document.querySelector("div#message");
+            let outputDiv = document.querySelector("div#output");
+
+
+            function build(){
+                let html = "<table>";
+                for(let name of names){
+                    trtdname = `<tr><td>${name}</td></tr>`
+                    html = html + trtdname
+                };
+                html = html + "</table>";
+                return html;
+            }
+
+            let tabledata = build()
+            document.querySelector("div#table").innerHTML = tabledata
+
+            let allTds = document.querySelectorAll("td");
+
+            for(let td of allTds){
+                td.classList.add("box");
+            };
+
+            let allTr = document.querySelectorAll("tr");
+            console.log(allTr)
+
+            for(let tr of allTr){
+                console.log(tr.innerHTML);
+                
+                tr.innerHTML = tr.innerHTML + `<td>${names.indexOf(tr.innerText)}</td>`
+            }
+
+
+            function getdata(element){
+                let elattr = element.getAttribute('onclick');
+                let eltext = element.innerText;
+                let messageDiv = document.querySelector("div#message");
+                messageDiv.innerText = elattr + " & " + eltext
+            }
+
+            firstRow = document.querySelector("tr");
+            firstRow.setAttribute("onclick", "getdata(this)")
+
+            
+
+
+        </script>
+    </body>
+
+</html>

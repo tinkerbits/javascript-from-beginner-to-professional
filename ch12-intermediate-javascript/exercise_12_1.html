@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>Complete Javascript Course</title>
+        <style>
+            body {
+                background-color: rgb(35, 40, 45);
+                color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="output">Complete Javascript Course</div>
+        Search for:
+        <input type="text" id="sText">
+        <br> Replace with:
+        <input type="text" id="rText">
+        <br>
+        <button>Replace</button>
+
+        <script>
+            let outputDiv = document.querySelector("div#output");
+            let searchInput = document.querySelector("input#sText");
+            let replaceInput = document.querySelector("input#rText");
+
+            function lookup(){
+                let outputStr = (outputDiv.innerText).replace(searchInput.value, replaceInput.value)
+                outputDiv.innerText = outputStr
+
+
+            }
+
+            document.querySelector("button").addEventListener("click", lookup)
+            
+        </script>
+    </body>
+</html>

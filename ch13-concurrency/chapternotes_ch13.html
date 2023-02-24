@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Chapter 13 - Concurrency</title>
+        <style>
+            body {
+                background-color: rgb(35, 40, 45);
+            }
+        </style>
+    </head>
+    <body>
+        <!--CONCURRENCY-->
+
+            <!--
+                Concurrenctly means doing things simultaneously. E.g. while your code is waiting for an API to give a response, it can be doing something else itself.
+                In Javascript there exist 3 strategies for concurrency: callbacks, promises and async&await.
+            -->
+
+
+            <!--CALLBACKS-->
+
+                <!--
+                    A callback is simply a function that takes another function as argument. The initial function can then call the argument function when it wants (i.e. when its done doing something itself.)
+                -->
+
+                <script>
+
+                    function sayHi(){
+                        console.log("Hi!")
+                    }
+
+                    function doSomething(callback){
+                        console.log("I'm doing something myself")
+                        console.log("Now I'm done myself")
+                        callback()
+                    }
+
+                    doSomething(sayHi)
+                </script>
+
+                <!--
+                    Some built-in Javascript methods also use this callback mechanism, e.g. setTimeOut() and setInterval) take a function as an argument.
+                    One more thing to note; use callbacks carefully. Overdoing it can quickly make code very hard to read.
+                -->
+
+            <!--PRACTICE EXERCISE 13.1-->
+
+                <script>
+
+                    function greet(fullName){
+                        for(let fn of fullName){
+                            console.log(`Hello there ${fn}`)
+                        }
+                    }
+
+                    let friendlist = ["Alexis", "Mark", "Markus"];
+                    greet(friendlist)
+
+
+                </script>
+
+            <!--PROMISES-->
+                <!--
+                    A Promise can be thought of like a real world promise; some outcome is promised but not yet guaranteed. Here its one bit of code promising an outcome to another bit of code who needs that outcome to progress.
+                    Promises are often written using an arrow function with two parameters; resolve and reject. If the promise is successful, the function is returned to the .then() function of the receiving code. Else reject is called and the function is returned to the .catch()
+                    What makes Promises so great for concurrency is that you can run multiple promises simultanously using the Promise.all() and Promise.race().
+                    Promise.all() returns when all provided promises are done running, and promise.race() returns when a single provided promise is done running.
+                    The explanation in the book is garbage, so use this much better explanation from WebDevSimplified instead: https://www.youtube.com/watch?v=DHvZLI7Db8E&t=303s
+                -->
+
+                <script>
+
+                    let p = new Promise((resolve, reject) => {
+                        let a = 1+2
+                        if(a==2){
+                            resolve("Success")
+                        }else{
+                            reject("Failed")
+                        }
+                    })
+
+
+                    p.then((message) => {
+                        console.log("This is in the then:", message)
+                    }).catch((message) => {
+                        console.log("This is in the catch:", message)
+                    })
+
+                </script>
+
+                <script>
+                    let renderVideo1 = new Promise((resolve, reject) => {
+                        resolve("Video 1 rendered")
+                    })
+
+                    let renderVideo2 = new Promise((resolve, reject) => {
+                        resolve("Video 2 rendered")
+                    })
+
+                    let renderVideo3 = new Promise((resolve, reject) => {
+                        resolve("Video 3 rendered")
+                    })
+
+                    Promise.all([renderVideo1, renderVideo2, renderVideo3]).then((messages) => {
+                        console.log(messages)
+                    })
+
+                    Promise.race([renderVideo1, renderVideo2, renderVideo3]).then((message) => {
+                        console.log(message)
+                    })
+                </script>
+
+            <!--ASYNC/AWAIT-->
+                <!--
+                    This is basically syntactical sugar around promises to make it easier to work with them / clearer to look at.
+                    Book explanation of Async / Await is again useless so again relied on WebDevSimpliefied for this concept: https://www.youtube.com/watch?v=V_Kr9OSfDeU
+                -->
+
+            <!--EVENT LOOPS-->
+                
+                <!--
+                    Javascript is a single-threaded languaged. This single thread / path is called "the event loop".
+                    It can do multithreading (aka Concurrency) by outsourcing some tasks.
+                -->
+
+            <!--CALLSTACK-->
+
+                <!--
+                    Javascript uses a call stack, and all the actions it has to execute are queued up there.
+                    It executes the call on top of the stack first.
+                    The event loop constantly monitors that call stack.
+                -->
+
+            <!--CALLBACK QUEUE-->
+                <!--
+                    Some tasks in the call stack get outsourced to the browser's web API.
+                    Once the web API is done with them, they're returned to "the callback queue".
+                    The call stack gets prioritized over the callback queueu; Javascript only check the callback queue if there is nothing in the call stack that it has to execute first.
+
+                    E.g. in the below example, you'll see that console.log("Sorry I am late") will be logged after console.log(4+9). Despite the interval being 0, it gets deprioritized when due to setInterval outsourcing it to the callback queue.
+                -->
+
+                <script>
+                    console.log("Hi there");
+                    setTimeout(()=>console.log("Sorry I am late"), 0)
+                    console.log(4+9)
+                </script>
+
+                <script>
+
+                    function addOne(val){
+                        return val + 1;
+                    }
+
+                    function total(a, b, callback){
+                        const sum = a + b;
+                        return callback(sum);
+                    }
+
+                    console.log(total(4, 5, addOne));
+
+                </script>
+
+    </body>
+</html>
+    

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body {
+                background-color: rgb(35, 40, 45);
+                color: white;
+            }
+
+            .box {
+                color: white;
+                height: 100px;
+                width: 100px;
+                border: 1px solid white;
+                margin: 2rem;
+                background-color: rgb(28, 32, 36);
+            }
+
+          th, td {
+                border: 1px solid white;
+            }
+        </style>
+
+    </head>
+    <body>
+        <main>
+            <div class="box" id="1">box 1</div>
+            <div class="box" id="2">box 2</div>
+            <div class="box" id="3">box 3</div>
+            <div class="box" id="4">box 4</div>
+            <table>
+                <tbody>
+                    <tr><th>Element</th><th>Click Count</th></tr>
+                    <tr><th>box 1</th><td class="clickcount"></td></tr>
+                    <tr><th>box 2</th><td class="clickcount"></td></tr>
+                    <tr><th>box 3</th><td class="clickcount"></td></tr>
+                    <tr><th>box 4</th><td class="clickcount"></td></tr>
+                </tbody>
+                
+            </table>
+        </main>
+
+        <script>
+            let boxDivs = document.querySelectorAll(".box");
+
+            function updateClickCount(ev){
+                let evta = event.target
+                let evtatext = evta.textContent
+
+                let tableTrs = document.querySelectorAll("tr")
+                for(let tablerow of tableTrs){
+                    if(tablerow.children.item(0).innerText === evtatext){
+                        tablerow.children.item(1).innerText = Number(tablerow.children.item(1).innerText) + 1
+                    }
+                    
+                }
+            }
+
+            for(let boxDiv of boxDivs){
+                boxDiv.addEventListener("click", (event) => updateClickCount(event))
+            }
+
+
+        </script>
+    </body>
+</html>

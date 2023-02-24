@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Complete Javascript Course</title>
+    </head>
+    <body>
+        <textarea name="txtarea" cols="50" rows="5">Lorem ipsum dolor sit jhaburke@gmail.com amet consectetur adipisicing elit. Deserunt earum optio pariatur, tempora, obcaecati jon.burke@useinsider.com quas exercitationem maiores jhaburke@gmail.com quam quia ad fuga itaque!</textarea>
+        <button>Get Email Addresses</button>
+        <textarea name="txtarea2" cols="50" rows="5"></textarea>
+        
+        <script>
+            let textarea1 = document.querySelector("textarea[name='txtarea']");
+            let textarea2 = document.querySelector("textarea[name='txtarea2']");
+            let getbutton = document.querySelector("button");
+
+
+
+
+            function extractEmailAddresses(){
+                let searchtext = textarea1.value;
+                let emailaddresses = searchtext.match(/[a-zA-Z\.\-\_]+@[a-zA-Z\.\-\_]+[a-zA-Z]{1,5}(\.[a-zA-Z]{1,5})?/gi)
+
+                let holderArr = []
+
+                for(let emailaddr of emailaddresses){
+                    if(holderArr.indexOf(emailaddr) === -1){
+                        holderArr.push(emailaddr)
+                    };
+                }
+
+                let resultStr = holderArr.join();
+                textarea2.innerText = resultStr
+            }
+ 
+            getbutton.addEventListener("click", extractEmailAddresses)
+            
+            
+
+
+
+        </script>
+        
+    </body>
+</html>

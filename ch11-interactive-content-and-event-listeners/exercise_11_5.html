@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>JS Tester</title>
+    </head>
+    <body>
+        <div class="output"></div>
+        <input type="text" name="message" placeholder="Your Message">
+        <button class="btn1">Button 1</button>
+        <button class="btn2">Button 2</button>
+        <div>
+            <button class="btn3">Log</button>
+        </div>
+        <script>
+            let log = [];
+
+            function eventLogger(event){
+                log.push(event);
+            }
+
+            function eventPublisher(){
+                let outputDiv = document.querySelector(".output");
+                outputDiv.innerText = log
+            }
+
+            let btn1 = document.querySelector(".btn1")
+            btn1.addEventListener("click", function(){eventLogger(event)});
+
+            let btn2 = document.querySelector(".btn2")
+            btn2.addEventListener("click", function(){eventLogger(event)});
+
+            let btn3 = document.querySelector(".btn3")
+            btn3.addEventListener("click", eventPublisher);
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Moving Box</title>
+        <style>
+            body {
+                background-color: rgb(35, 40, 45);
+            }
+            .box {
+                background-color: white;
+                height: 100px;
+                width: 100px;
+                position: absolute;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="box"></div>
+        <script>
+            let intervalId;
+            let boxDiv = document.querySelector(".box");
+
+            let currentBoxLocation = 0;
+
+            function moveBox() {
+                let boxWidth = boxDiv.offsetWidth;
+
+
+                if(currentBoxLocation + boxWidth >= window.innerWidth){
+                    console.log("done now")
+                    clearInterval(intervalId)
+                }else{
+                    currentBoxLocation = currentBoxLocation + 1;
+                    evta = document.querySelector(".box")
+                    evta.style.left = currentBoxLocation + "px"
+
+                }
+            }
+
+            intervalId = setInterval(moveBox, 1)
+
+
+        </script>
+    </body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Javascript Course
+        </title>
+        <style>
+            .hide {
+                display: none;
+            }
+            .error {
+                color: red;
+                font-size: 0.8em;
+                font-family: sans-serif;
+                font-style: italic;
+            }
+            .input {
+                border-color: #ddd;
+                width: 400px;
+                display: block;
+                font: 1.5em;
+            }
+        </style>
+    </head>
+
+    <body>
+        <form name="myform">
+            Email:
+            <input type="text" name="email">
+            <span class="error hide"></span>
+            <br>
+            Password:
+            <input type="password" name="password">
+            <span class="error hide"></span>
+            <br>
+            User Name:
+            <input type="text" name="username">
+            <span class="error hide"></span>
+            <br>            
+            <input type="submit" value="Sign Up">
+        </form>
+
+        <script>
+            let emailinput = document.querySelector("input[name='email']");
+            let passwordinput = document.querySelector("input[name='password']");
+            let usernameinput = document.querySelector("input[name='username']");
+            let submitinput = document.querySelector("input[type='submit']");
+            let errorspans = document.querySelectorAll(".error");
+
+            function verifydata(ev){
+                
+                //Email
+                let emailvalue = emailinput.value
+                let emailvalid = emailvalue.match(/[a-zA-Z\.\-\_]+@[a-zA-Z\.\-\_]+[a-zA-Z]{1,5}(\.[a-zA-Z]{1,5})?/i)
+                
+                if(emailvalid === null){
+                    ev.preventDefault()
+                    let emailerrorspan = emailinput.nextElementSibling;
+                    emailerrorspan.classList.remove("hide")
+                    emailerrorspan.innerText = "Invalid Email Address"
+                }
+
+                //Password
+                let passwordvalue = passwordinput.value
+                let passwordvalidchars = emailvalue.match(/[a-zA-Z0-9]+/)
+                let passwordlength = passwordvalue.length
+
+                if(passwordvalidchars | passwordlength < 8){
+                    ev.preventDefault()
+                    let passworderrorspan = passwordinput.nextElementSibling;
+                    passworderrorspan.classList.remove("hide")
+                    passworderrorspan.innerText = "Invalid Password"
+                }
+
+
+
+            }
+
+            submitinput.addEventListener("click", function(){verifydata(event)})
+
+
+        </script>
+        
+    </body>
+</html>

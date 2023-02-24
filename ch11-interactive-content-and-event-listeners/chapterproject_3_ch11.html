@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body {
+                background-color: rgb(35, 40, 45);
+            }
+            .box {
+                width: 800px;
+                height: 600px;
+                border: 1px solid white;
+            }
+            .output{
+                color: white;
+            }
+
+            .active{
+                border: 2px solid white;
+            }
+        </style>
+
+    </head>
+    <body>
+        <div class="box"></div>
+        <div class="output"></div>
+        <script>
+            function logMousePos(ev){
+                let outputDiv = document.querySelector("div.output")
+                outputDiv.innerText = `X = ${ev.clientX}, Y = ${ev.clientY}`
+
+            }
+
+
+            let boxEl = document.querySelector(".box")
+
+            function addActiveClass(){
+                boxEl.classList.add("active")
+                boxEl.addEventListener("mousemove", (event) => logMousePos(event))
+            }
+
+            function removeActiveClass(){
+                boxEl.classList.remove("active")
+                let outputDiv = document.querySelector("div.output")
+                outputDiv.innerText = ""
+            }
+
+            boxEl.addEventListener("mouseover", addActiveClass)
+            boxEl.addEventListener("mouseout", removeActiveClass)
+
+
+        </script>
+    </body>
+</html>

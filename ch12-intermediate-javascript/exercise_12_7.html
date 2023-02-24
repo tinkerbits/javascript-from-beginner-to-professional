@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Javascript</title>
+        <style>
+            .ready {
+                background-color: #ddd;
+                color: red;
+                text-decoration: line-through;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="main">
+            <input placeholder="new item" maxlength="30">
+            <button>Add</button>
+        </div>
+        <ul class="output"></ul>
+
+        <script>
+            
+            let mainDiv = document.querySelector("div.main");
+            let inputField = document.querySelector("input");
+            let addButton = document.querySelector("button");
+            let outputUl = document.querySelector("ul");
+
+            function addValue(){
+                localStorage.setItem(`item ${localStorage.length}`, inputField.value)
+                let newli = document.createElement("li");
+                newli.innerText = inputField.value;
+                outputUl.appendChild(newli)
+
+            }
+
+            for(let i = 0; i < localStorage.length; i++){
+                let newli = document.createElement("li");
+                newli.innerText = localStorage.getItem(localStorage.key(i));
+                outputUl.appendChild(newli)
+            }
+
+
+            addButton.addEventListener("click", addValue)
+
+
+            
+
+        </script>
+        
+    </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <title>Working with JSON</title>
+    </head>
+    <body>
+
+        <script>
+            let peopleObj = new Object();
+            
+            let objArr = [];
+
+            let markObj = new Object()
+            markObj.first = "Mark";
+            markObj.last = "Twigley";
+            markObj.topic = "Email Marketing";
+            objArr.push(markObj);
+
+            let alexisObj = new Object()
+            alexisObj.first = "Alexis";
+            alexisObj.last = "Quitonzo";
+            alexisObj.topic = "Life in Spain";
+            objArr.push(alexisObj);
+
+            let anthonyObj = new Object()
+            anthonyObj.first = "Anthony";
+            anthonyObj.last = "Hitchell";
+            anthonyObj.topic = "Banter";
+            objArr.push(anthonyObj);
+
+            peopleObj.homies = objArr
+
+            console.log(peopleObj)
+
+            for(let homie of peopleObj.homies){
+                console.log(homie.first)
+            }
+
+
+        </script>
+        
+    </body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+    </head>
+    <body>
+
+        <div id="output"></div>
+
+        <br>
+
+        <input type="text" name="firstname" placeholder="required" id="firstname">
+        <input type="text" name="lastname" placeholder="required" id="lastname">
+        
+
+        <script>
+            let output = document.querySelector("#output");
+            let eles = document.querySelectorAll("input");
+
+            function checkNum(event){
+                if(isNaN(event.key)){
+                    event.preventDefault() // This prevents the key from entering if its not a number
+                }
+
+            }
+
+            function logPaste(event){
+                console.log(event)
+            }
+
+            function addEvLi(item){
+                item.addEventListener("keydown", (ev) => checkNum(ev))
+                item.addEventListener("paste", (ev) => logPaste(ev))
+            }
+
+            eles.forEach(addEvLi);
+
+        </script>
+
+    </body>
+</html>

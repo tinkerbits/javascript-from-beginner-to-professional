@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Complete Javascript Cours</title>
+        <style></style>
+    </head>
+    <body>
+        <div id="message">Complete Javascript Course</div>
+        <div>
+            <input type="text" id="addItem">
+            <input type="button" id="addNew" value="Add to list">
+        </div>
+        <div id="output">
+            <h1>Shopping List</h1>
+            <ol id="sList"></ol>
+        </div>
+        <script>
+            let addButton = document.querySelector("input#addNew");
+
+            function addOne(){
+                let newLi = document.createElement("li");
+                newLi.innerText = document.querySelector("input#addItem").value
+                document.querySelector("ol#sList").appendChild(newLi)
+            }
+
+            addButton.addEventListener("click", addOne)
+
+        </script>
+    </body>
+</html>

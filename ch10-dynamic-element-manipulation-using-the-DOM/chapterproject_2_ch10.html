@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Complete Javascript Course</title>
+    </head>
+    <body>
+        <div id="message">Complete Javascript Course</div>
+        <div>
+            <input type="text" id="addFriend">
+            <input type="button" id="addNew" value="Add Friend">
+        </div>
+        <table id="output"></table>
+
+        <script>
+            let friendArr = [];
+
+
+            function countVote(element){
+                currentVotes = Number(element.parentElement.lastChild.innerText)
+                element.parentElement.lastChild.innerText = currentVotes+1
+            }
+
+
+            function getFieldValue(){
+                let newFriend =  document.querySelector("input#addFriend").value
+
+                let resultTable = document.querySelector("table#output");
+
+                let newRow = document.createElement("tr");
+                newRow.innerHTML= `<td>${newFriend}</td><td></td>`;
+                
+                resultTable.appendChild(newRow);
+
+                newRow.addEventListener("click", (event) => countVote(event.target));
+            }
+
+            document.querySelector("input#addNew").addEventListener("click", getFieldValue)
+
+
+        </script>
+    </body>
+</html>

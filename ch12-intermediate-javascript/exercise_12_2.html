@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>Complete Javascript Course</title>
+        <style>
+            body {
+                background-color: rgb(35, 40, 45);
+                color: white;
+            }
+        </style>
+    </head>
+    <body style="color: white">
+        <div class="output"></div>
+        <input class="emailentry" type="text" placeholder="Enter Email">
+        <button id="check">Check</button>
+
+        <script>
+            let outputDiv2 = document.querySelector("div.output")
+            let emailInput = document.querySelector("input.emailentry")
+            let checkButton = document.querySelector("button#check")
+
+            function checkEmail(){
+                let emailcheck = (emailInput.value).match(/[\w\d-_.]+@[\w\d-_.]+\.[\w\d]{1,3}(\.[\w\d]{1,3})?/i)
+                if(emailcheck == null){
+                    outputDiv2.innerText = "Invalid Email Address"
+                    outputDiv2.setAttribute("style", "background-color: red")
+                }else{
+                    outputDiv2.innerText = `${emailcheck[0]} is a valid email address.`
+                    outputDiv2.setAttribute("style", "background-color: green")
+                }
+            }
+            checkButton.addEventListener("click", checkEmail)
+
+        </script>
+    </body>
+</html>

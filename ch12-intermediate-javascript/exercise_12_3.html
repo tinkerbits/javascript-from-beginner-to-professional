@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+
+    </head>
+    <script>
+        
+
+
+        function noArgs(){
+
+            let lastOne = ''
+
+            for(let i = 0; i < arguments.length; i++){
+                lastOne = arguments[i]
+                
+            };
+
+            return lastOne;
+        }
+
+
+        let noArgsReturn = noArgs("Senna", "Lauda", "Schumacher");
+
+        console.log(noArgsReturn)
+
+    </script>
+</html>

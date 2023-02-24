@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Chapterproject Chapter 13</title>
+        <style>
+            body {
+                background-color: rgb(35, 40, 45);
+                color: white;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <input type="text" placeholder="username">
+        <input type="text" placeholder="password" value="twat">
+        <button>Sign Up</button>
+        
+        <script>
+
+            let usernameEl = document.querySelector("input[placeholder='usernam']");
+            let passwordEl = document.querySelector("input[placeholder='password']");
+            let signupEl = document.querySelector("button")
+
+
+            let allowedPWs = ["dick", "twat", "shite", "asshole"];
+
+
+            let verifyPW = new Promise((resolve, reject) => {
+                if(allowedPWs.includes(passwordEl.value)){
+                    resolve("Good Password!")
+                }else{
+                    reject("Bad Password!")
+                }
+            })
+
+            verifyPW.then((message) => {
+                console.log(message)
+            }).catch((message) => {
+                console.log(message)
+            })
+
+        </script>
+
+    </body>
+</html>

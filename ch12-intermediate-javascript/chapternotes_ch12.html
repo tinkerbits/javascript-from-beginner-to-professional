@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            background-color: rgb(35, 40, 45);
+        }
+    </style>
+
+</head>
+
+<body>
+    <!--REGULAR EXPRESSIONS-->
+
+
+    <!--MATCH
+                A regular expression match can be found using the .match() method on the string object.
+                Your regular expression goes between the brackets and should start and end with a forward slash.
+                You can add regex flags after the final slash.
+                Match returns an array object, where index 0 of the array is the matching string it found. The other positions in the array contain some extra info.
+            -->
+
+    <script>
+        let text = "I love Javascript."
+        console.log(text.match(/javascript/)) // This will return null since regex matching is case sensitive by default and no match can be found here.
+        console.log(text.match(/javascript/i)) // The i flag makes the search case-insensitive, so this will find a match.
+    </script>
+
+
+
+    <!--OR CONDITION
+                You can add or conditions using the pipe character.
+            -->
+
+    <script>
+        let text2 = "I love python and django. But especially python."
+        console.log(text2.match(/python|javascript/g)) // The g flag makes the search result return all matches instead of only returning the first match.
+    </script>
+
+
+
+    <!--CHARACTER OPTIONS
+                Denotated by square brackets, character groups let you match any character that is in the group.
+            -->
+
+    <script>
+        let text3 = "Kids should learn their abc's"
+        console.log(text3.match(/[bc]/)) // This will match 'b' since b occurs first in the string and we don't use the g flag to return all matches.
+        console.log(text3.match(/[a-zA-Z]/)) // This will match any letter from the latin alphabet. Here it will return 'K'
+        console.log(text3.match(/[a-zA-Z0-9]/)) // This will match any letter from the latin alphabet or any number between 0 and 9.
+    </script>
+
+
+
+    <!--WILDCARDS
+                Wildcards allow you to match anything.
+            -->
+
+    <script>
+        let text4 = "My daughter's name is Zoë."
+        console.log(text4.match(/Zo./)) // This will weirdly return ZoÃ due to an encoding error. To fix this, you have to encode to utf8
+    </script>
+
+
+
+    <!--ESCAPING CHARACTERS
+                You can "escape" a character (which means "take this literally") by preceding it with a backslash.
+            -->
+
+    <script>
+        let text5 = "Here are some dots: ..."
+        console.log(text5.match(/\./)) // This will not function as a wildcard but instead match a literal dot only.
+    </script>
+
+
+
+    <!--SPECIAL CHARACTERS
+                Some characters get a special meaning when preceded with a backslash.
+
+                \d = digits
+                \w = a-z, A-Z & spaces
+                \s = spaces
+                \b = beginning of the string
+            -->
+
+    <script>
+        let text6 = "I am 34 years old."
+        console.log(text6.match(/\d/)) // This will return 'd' and not '2' because of the escape backslash.
+
+        let text7 = "In the beginning there was nothing."
+        console.log(text7.match(/\bin/gi)) // This will only return 'In'.
+    </script>
+
+
+
+    <!--GROUPS
+                You can use brackets to greate a group.
+            -->
+
+    <script>
+        let text8 = "I love python."
+        console.log(text8.match(/(love|hate)\s(python|javascript)/gi)) // This will return 'love python'.
+    </script>
+
+
+
+    <!--MULTIPLYERS
+                ? = zero or one time
+                + = one or more times
+                * = zero or more times
+                {3, 5} = minumum 3 times, maximum 5 times
+            -->
+
+    <script>
+        let text9 = "abcabcabcabcabc"
+        console.log(text9.match(/(abc){1,3}/)) // This will return an array with the maximum ('abcabcabc') at index 0 and the minimum ('abc') at index 1, and some more info.
+    </script>
+
+
+
+    <!--OTHER TEXT METHODS
+                Apart from text.match() we can use some other functions such as:
+
+                text.search() = returns the index at whitch the match was found.
+                text.replace() = replace the first string it finds (though you can replace all strings by adding the /g flag.)
+            -->
+
+    <script>
+        let text10 = "I really love Javascript. Javascript is such an elegant and clean language."
+        console.log(text10.replace(/javascript/gi, "Python"))
+    </script>
+
+
+
+    <!--PRACTICE EXERCISE 12.1
+                Completed via exercise_12_1.html
+            -->
+
+    <!--PRACTICE EXERCISE 12.2
+                Completed via exercise_12_2.html
+            -->
+
+    <!--FUNCTIONS AND THE ARGUMENTS OBJECT-->
+
+    <!--THE ARGUMENTS OBJECTS
+        Javascript adds arguments to an object that it calls 'arguments'.
+        This object works a bit like an array in the sense that you can call an individual argument via its index.
+    -->
+
+    <script>
+        function test(a, b, c) {
+            console.log("first:", a, arguments[0])
+        }
+
+        test("Maxpax", "Serral", "Clem")
+    </script>
+
+    <!--You an also overwrite arguments this way:
+            -->
+    <script>
+        function test2(a, b, c) {
+            arguments[1] = "Reynor"
+            console.log("Second:", b, arguments[1])
+        }
+        test2("Maxpax", "Serral", "Clem")
+    </script>
+
+    <!--One curious thing that the arguments allows you to do is access extra arguments; ones that were too many for the function definition:
+    -->
+
+    <script>
+
+    </script>
+
+    <!--PRACTICE EXERCISE 12.3
+                Completed via exercise_12_3.html
+            -->
+
+    <!--JAVASCRIPT HOISTING-->
+
+    <!--Hoisting means moving variable declarations to the top of the scope in which they are defined.
+        Javascript's interpreter does this behind the scenes for all var variables (but not for let or const variables).
+        E.g. you could use var variables before declaring them, e.g:
+        Hoisting is a messy side effect of the way Javascript was developed, and you should be careful with it / disable it (see next topic).
+    -->
+
+    <script>
+        x = 5;
+        console.log(x);
+        var x;
+    </script>
+
+    <!--STRICT MODE-->
+
+    <!--Javascript has a lot of "forgiving behaviour", such as hoisting or letting you declare variables without the const/let/var keywords.
+        You can disable such forgiving behaviour by switching to 'Strict Mode' by using the following as the first command of your code:
+        "use strict";
+        This is nowadays considered a best practice and so professionaly most developers will use / encourage strict mode.
+        E.g. the following example will throw a reference error because the greeting variable was not declared using const/let/var:
+    -->
+
+    <script>
+        "use strict";
+
+        function sayHi() {
+            greeting = "Hello!";
+            console.log(greeting);
+        }
+        // sayHi(); //Commented out as this otherwise blocks the rest of the file from working.
+    </script>
+
+    <!--If you want you can also use "use strict" in just a single function by declaring it at the top of the function.
+    -->
+
+    <!--DEBUGGING-->
+
+    <!--A debugger will run your code line by line, and for each line you can see the variables and their values that exist in the code so far.
+        Alternatively you can also make it pause at a few lines only; you can do this by setting breakpoints.
+        Debugging can be done directly from your browser's devtools or from your IDE.
+    -->
+
+    <!--PRACTICE EXERCISE 12.4-->
+
+        <!--This was done directly from Chrome and VSCode.
+        -->
+
+    <!--ERROR HANDLING-->
+
+    <!--TRY/CATCH-->
+
+        <!--This is similar to Python's try/except.
+            After an error was caught, the code will keep running.
+            Optionally you can also add a 'finally' clause which will be executed no matter if there was an error or not.
+        -->
+
+        <script>
+            function potentiallyBroken(x, y) {
+                return anundeclaredvariable
+            }
+
+            try {
+                potentiallyBroken(3, 5);
+            } catch (e) {
+                console.log("Sorry, I ran into this error:", e)
+            }
+
+            try {
+                potentiallyBroken(4, 6);
+            } catch (e) {
+                console.log("No luck, because I ran into this problem:", e)
+            } finally {
+                console.log("Error or no error, I will be logged either way.")
+            }
+        </script>
+
+    <!--THROW-->
+
+        <!--If, for some reason, you want to intentionally throw an error, you can do it with throw.
+        -->
+
+        <script>
+            function illbreakyourcode() {
+                throw RangeError()
+            }
+
+                        // illbreakyourcode() //Commented out as this otherwise blocks the rest of the file from working.
+        </script>
+
+    <!--PRACTICE EXERCISE 12.5
+        Completed via exercise_12_5.html
+    -->
+
+    <!--USING COOKIES-->
+
+        <!--Cookies are small text files stored on a users computer with information about that user.
+            Information is stored in key-value pairs.
+            In some browser, you can create a new cookie via document.cookie; e.g see below:
+        -->
+
+        <script>
+
+            document.cookie = "name=Jon;favoriteColor=Red";
+            console.log(document.cookie)
+        </script>
+
+        <!--This does not work in all browser however. E.g. Chrome does not allow setting cookies from the client side; you have to set them from the server side.
+            It should work in Safari.
+            Support among browsers for setting cookies from the client side might not continue in the future.
+        -->
+
+    <!--PRACTICE EXERCISE 12.6
+        Skipped this exercise as I won't be needed it anytime soon and since it doesn't work on Chrome with a client-side script anyway
+    -->
+
+    <!--LOCAL STORAGE-->
+
+        <!--Local Storage is an alternative to cookies in the sense that it's also used to store information about the user on the users' computer itself.
+            Here you store information in key/value pairs.
+            The advantage of Local Storage over Cookies is that Local Storage can be read directly by the local client, and does not have to be passed along via the HTTP request (unlike cookies).
+            Local Storage never expires (unlike cookies) but can be manually deleted.
+        -->
+
+        <!--SETITEM()-->
+
+        <!--You can set (aka store) an item like so:
+        -->
+            <script>
+                localStorage.setItem("firstname", "Jon")
+                localStorage.setItem("lastname", "Burke")
+                console.log(localStorage)
+            </script>
+
+        <!--GETITEM()-->
+
+        <!--You can get (aka retrieve) an item like this:
+        -->
+        <script>
+            let somethingstored = localStorage.getItem("firstname");
+            console.log(somethingstored)
+        </script>
+
+        <!--KEY()-->
+
+        <!--If you want to retrieve an item by its index, you can use key()
+            This will return the key (which you can then use to find the value).
+        -->
+        <script>
+            let firstitemkey = localStorage.key(0);
+            console.log(firstitemkey);
+            console.log(localStorage.getItem(firstitemkey));
+        </script>
+
+        <!--REMOVEITEM()-->
+
+        <!--You can remove an item from Local Storage like so:
+        -->
+        <script>
+            localStorage.removeItem("firstname")
+        </script>
+
+
+        <!--CLEAR()-->
+
+        <!--This instead clears the entire Local Storage-->
+
+        <script>
+            localStorage.clear()
+        </script>
+
+
+    <!--JSON-->
+
+        <!--JSON stands for Javascript Object Notation.
+            It is simply a data format.
+            It's very often used by APIs, even API's not written in Javascript.
+            Its syntax looks like this:
+
+            {
+                "name" : "Jon",
+                "surname" : "Burke",
+                "age" : 34,
+                "languages" : ["English", "Dutch"]
+                "address": {
+                    "street" : "Carrer Del Jardi",
+                    "house number" : 1,
+                    "city" : "Vilanova i la Geltrú",
+                    "postcode" : 08800
+                }
+            }
+        -->
+
+    <!--ESSENTIAL JSON METHODS-->
+
+        <!--This is not written in the book; found this on Stack Overflow instead.
+            But the best way to create a JSON object in Javascript is by making an object and then adding properties to it.
+            You can then finally use JSON.stringify() to turn an object into a JSON string.
+            If you need multiple objects, you can make an object containing objects.
+            You can turn the JSON string back into an object using JSON.parse().
+            To loop over an object you can use a For In loop, or Object.keys(), Object.values() or Object.etries().
+            E.g. see the example below:
+        -->
+            
+        <script>
+
+            let obj1 = new Object();
+            obj1.name = "Jon";
+            obj1.age = 34
+
+            let obj2 = new Object();
+            obj2.name = "Julia";
+            obj2.age = 37
+
+            let parentobj = new Object();
+            parentobj.item1 = obj1;
+            parentobj.item2 = obj2;
+
+            jsonObj = JSON.stringify(parentobj) //Turns Object into JSON String
+            console.log(jsonObj)
+
+            let objAgain = JSON.parse(jsonObj); //Turns JSON String back into Object
+
+            // To loop over an object, you can not use a For Of loop. You can however use a For In loop if all we want is the keys.
+            for(let item in objAgain){
+                console.log(item);
+            }
+
+            // More powerful are Object.keys() (for keys) and Object.values() (for values) and Object.entries() (for full entries).
+
+            console.log(Object.keys(objAgain));
+            console.log(Object.values(objAgain));
+            console.log(Object.entries(objAgain));
+
+        </script>
+
+        <!--PRACTICE EXERCISE 12.8 AND PRACTICE EXERCISE 12.9-->
+            <!--This have been incorporated in the previous example
+            -->
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="./exercise_11_3.js" defer></script>
+    </head>
+    <body style="background-color:steelblue">
+
+        <script>
+            function message(msg, eventobj){
+                console.log(`message: ${msg}`);
+                console.log(`event object: ${eventobj}`);
+            };
+
+            window.onload = (event) => message("Window Ready", event);
+
+            document.addEventListener("DOMContentLoaded", (event) => message("Document Ready", event));
+            
+        </script>
+
+    </body>
+</html>

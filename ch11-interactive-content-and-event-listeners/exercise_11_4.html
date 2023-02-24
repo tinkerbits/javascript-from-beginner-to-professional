@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    </head>
+    <body>
+
+        <div class="square"></div>
+
+        <script>
+            let square = document.querySelector(".square");
+            square.innerText = "hello world"
+
+            square.setAttribute("style", "width: 100px; height: 100px; border: 5px black solid; background-color: steelblue;")
+
+            function changeColour(colour, element){
+                element.setAttribute("style", `width: 100px; height: 100px; border: 5px black solid; background-color: ${colour};`)
+
+            }
+
+            square.onmousedown = function(){ changeColour("green", event.target); console.dir(event)}
+            square.onmouseover = function(){ changeColour("red", event.target); console.dir(event)}
+            square.onmouseout = function(){ changeColour("purple", event.target); console.dir(event)}
+            square.onmouseup = function(){ changeColour("yellow", event.target); console.dir(event)}
+
+
+
+        </script>
+
+    </body>
+</html>

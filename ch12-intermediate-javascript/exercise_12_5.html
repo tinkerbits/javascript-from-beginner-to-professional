@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+
+    </head>
+    <body>
+        <input type="text" placeholder="any value">
+        <button>Submit</button>
+    </body>
+
+    <script>
+        "use strict"
+        let inputField = document.querySelector("input");
+        let submitButton = document.querySelector("button")
+
+        function checkInputFieldValue(){
+            if(isNaN(inputField.value)){
+                throw "This is a string!"
+            } else {
+                console.log("Well done, this is a number")
+            }
+        }
+
+        submitButton.addEventListener("click", checkInputFieldValue)
+
+
+        function somefunc(val){
+            try {
+                if(isNaN(val)){
+                    throw "This is a string too!"
+                }else{
+                    console.log("Got a number!")
+                }
+            } catch (e) {
+                console.log(e)
+            } finally {
+                console.log(val)
+            }
+        }
+
+        somefunc(12)
+
+    </script>
+
+
+</html>
